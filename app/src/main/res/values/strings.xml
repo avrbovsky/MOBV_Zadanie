@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MOBV Zadanie</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoieHZyYm92c2t5YSIsImEiOiJjbDJtMGJnM3Ywczc3M2RucXRlYndqM3FjIn0.B1P-J1RmXov6fX_I1F7cEQ</string>
 </resources>

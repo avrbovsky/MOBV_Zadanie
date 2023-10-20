@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/introFragment">
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="eu.mcomputing.mobv.zadanie.IntroFragment">
+
+        <action
+            android:id="@+id/action_intro_to_login"
+            app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/action_intro_to_registration"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/loginFragment" android:name="eu.mcomputing.mobv.zadanie.LoginFragment">
+        <action android:id="@+id/action_login_to_map"
+            app:destination="@+id/mapFragment" />
+
+        <action android:id="@+id/action_login_to_reset"
+            app:destination="@+id/passwordResetFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/registrationFragment" android:name="eu.mcomputing.mobv.zadanie.RegistrationFragment">
+        <action android:id="@+id/action_registration_to_login"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/mapFragment" android:name="eu.mcomputing.mobv.zadanie.MapFragment">
+        <action
+            android:id="@+id/action_map_to_feed"
+            app:destination="@+id/feedFragment" />
+
+        <action
+            android:id="@+id/action_map_to_profile"
+            app:destination="@+id/profileFragment" />
+
+        <action
+            android:id="@+id/action_map_to_userProfile"
+            app:destination="@+id/userProfileFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/profileFragment" android:name="eu.mcomputing.mobv.zadanie.ProfileFragment">
+        <action
+            android:id="@+id/action_profile_to_feed"
+            app:destination="@+id/feedFragment" />
+
+        <action
+            android:id="@+id/action_profile_to_map"
+            app:destination="@+id/mapFragment" />
+
+        <action
+            android:id="@+id/action_profile_to_changePass"
+            app:destination="@+id/changePassFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/feedFragment" android:name="eu.mcomputing.mobv.zadanie.FeedFragment">
+        <action
+            android:id="@+id/action_feed_to_map"
+            app:destination="@+id/mapFragment" />
+
+        <action
+            android:id="@+id/action_feed_to_profile"
+            app:destination="@+id/profileFragment" />
+
+        <action
+            android:id="@+id/action_feed_to_userProfile"
+            app:destination="@+id/userProfileFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/passwordResetFragment" android:name="eu.mcomputing.mobv.zadanie.ForgotPasswordEmailFragment">
+        <action android:id="@+id/action_passwordReset_to_passwordResetCode"
+            app:destination="@+id/passwordResetCodeFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/passwordResetCodeFragment" android:name="eu.mcomputing.mobv.zadanie.ForgotPasswordCodeFragment">
+        <action android:id="@+id/action_passwordReset_to_login"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/userProfileFragment" android:name="eu.mcomputing.mobv.zadanie.UserProfileFragment" />
+
+    <fragment android:id="@+id/changePassFragment" android:name="eu.mcomputing.mobv.zadanie.ChangePasswordFragment">
+        <action
+            android:id="@+id/action_changePass_to_profile"
+            app:destination="@+id/profileFragment" />
+    </fragment>
+
+</navigation>
