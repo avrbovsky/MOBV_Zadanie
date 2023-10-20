@@ -2,18 +2,18 @@ package eu.mcomputing.mobv.zadanie
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 
 class ForgotPasswordCodeFragment:  Fragment(R.layout.fragment_forgot_password_code) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val codeInput = view.findViewById<EditText>(R.id.et_code)
-        val passwordInput = view.findViewById<EditText>(R.id.et_passwordReset)
-        val passwordRepeatInput = view.findViewById<EditText>(R.id.et_passwordAgainReset)
+        val codeInput = view.findViewById<TextInputEditText>(R.id.et_code)
+        val passwordInput = view.findViewById<TextInputEditText>(R.id.et_passwordReset)
+        val passwordRepeatInput = view.findViewById<TextInputEditText>(R.id.et_passwordAgainReset)
         val passwordResetBtn = view.findViewById<MaterialButton>(R.id.bt_resetPasswordCode)
 
         val navController = findNavController()

@@ -2,21 +2,20 @@ package eu.mcomputing.mobv.zadanie
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 
 class RegistrationFragment: Fragment(R.layout.fragment_signup) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val emailInput = view.findViewById<EditText>(R.id.et_registrationEmail)
-        val usernameInput = view.findViewById<EditText>(R.id.et_registrationUsername)
-        val passwordInput = view.findViewById<EditText>(R.id.et_registrationPassword)
-        val passwordRepeatInput = view.findViewById<EditText>(R.id.et_registrationPasswordRepeat)
-        val registerBtn: MaterialButton = view.findViewById(R.id.bt_sign_up)
+        val emailInput = view.findViewById<TextInputEditText>(R.id.et_registrationEmail)
+        val usernameInput = view.findViewById<TextInputEditText>(R.id.et_registrationUsername)
+        val passwordInput = view.findViewById<TextInputEditText>(R.id.et_registrationPassword)
+        val passwordRepeatInput = view.findViewById<TextInputEditText>(R.id.et_registrationPasswordRepeat)
+        val registerBtn = view.findViewById<MaterialButton>(R.id.bt_sign_up)
 
         val navController = findNavController()
 
