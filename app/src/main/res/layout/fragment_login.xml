@@ -9,7 +9,7 @@
         android:id="@+id/tv_prihlasenie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prihlasenie"
+        android:text="@string/signIn"
         android:layout_marginTop="20dp"
         style="@style/Header"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,7 @@
         android:id="@+id/loginUsernameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="@string/username"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/loginPasswordField"
         app:layout_constraintVertical_chainStyle="packed">
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Heslo"
+        android:hint="@string/password"
         app:layout_constraintTop_toBottomOf="@+id/loginUsernameField"
         app:layout_constraintBottom_toTopOf="@+id/bt_login">
 
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bt_login"
-        android:text="Prihlásiť sa"
+        android:text="@string/signIn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginPasswordField"

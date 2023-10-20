@@ -9,7 +9,7 @@
         android:id="@+id/tv_registracia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registracia"
+        android:text="@string/signUp"
         android:layout_marginTop="20dp"
         style="@style/Header"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         android:id="@+id/registrationUsernameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="@string/username"
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/registrationEmailField">
 
@@ -52,7 +52,7 @@
         android:id="@+id/registrationPasswordField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Heslo"
+        android:hint="@string/password"
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/registrationUsernameField">
 
@@ -68,7 +68,7 @@
         android:id="@+id/registrationPasswordRepeatField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Heslo znovu"
+        android:hint="@string/passwordAgain"
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/registrationPasswordField">
 
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bt_sign_up"
-        android:text="Registruj sa"
+        android:text="@string/signUp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
