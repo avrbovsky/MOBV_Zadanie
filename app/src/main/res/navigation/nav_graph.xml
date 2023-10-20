@@ -2,7 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/introFragment">
+    app:startDestination="@+id/example">
+
+    <fragment android:id="@+id/example"
+        android:name="eu.mcomputing.mobv.zadanie.ExampleFragment" />
 
     <fragment
         android:id="@+id/introFragment"
