@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation ("com.google.android.material:material:1.4.0")
     implementation("com.mapbox.maps:android:10.16.0")
     implementation("androidx.core:core-ktx:1.9.0")

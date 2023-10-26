@@ -7,11 +7,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/feed_recyclerview"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:layout_constraintBottom_toTopOf="@id/bt_generateFeed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="0dp"
         android:layout_width="match_parent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_generateFeed"
+        android:text="Generate Feed"
+        app:layout_constraintTop_toBottomOf="@+id/feed_recyclerview"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <eu.mcomputing.mobv.zadanie.BottomNavigationLayout
         android:id="@+id/bottom_bar"
