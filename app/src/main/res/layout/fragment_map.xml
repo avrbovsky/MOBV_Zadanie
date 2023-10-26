@@ -15,7 +15,7 @@
         mapbox:layout_constraintBottom_toTopOf="@+id/navBar"
         />
 
-    <eu.mcomputing.mobv.zadanie.BottomNavigationLayout
+    <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
         android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

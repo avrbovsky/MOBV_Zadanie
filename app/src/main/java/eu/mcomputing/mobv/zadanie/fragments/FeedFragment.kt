@@ -1,14 +1,16 @@
-package eu.mcomputing.mobv.zadanie
+package eu.mcomputing.mobv.zadanie.fragments
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import eu.mcomputing.mobv.zadanie.viewmodels.FeedViewModel
+import eu.mcomputing.mobv.zadanie.R
+import eu.mcomputing.mobv.zadanie.adapters.FeedAdapter
 
 class FeedFragment: Fragment(R.layout.fragment_feed) {
 

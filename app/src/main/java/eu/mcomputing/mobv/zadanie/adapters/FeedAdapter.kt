@@ -1,4 +1,4 @@
-package eu.mcomputing.mobv.zadanie
+package eu.mcomputing.mobv.zadanie.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import eu.mcomputing.mobv.zadanie.ItemDiffCallback
+import eu.mcomputing.mobv.zadanie.R
 
 data class FeedItem(val id: Int, val imageResource: Int, val text: String) {
     override fun equals(other: Any?): Boolean {
@@ -49,22 +51,9 @@ class FeedAdapter: RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
     override fun getItemCount() = items.size
 
     fun updateItems(newItems: List<FeedItem>) {
+        val diffCallback = ItemDiffCallback(items, newItems)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         items = newItems
-        notifyDataSetChanged()
-    }
-}
-
-
-class MyItemDiffCallback(
-    private val oldList: List<FeedItem>,
-    private val newList: List<FeedItem>
-) : DiffUtil.Callback() {
-    override fun getOldListSize() = oldList.size
-    override fun getNewListSize() = newList.size
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].id == newList[newItemPosition].id
-    }
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        diffResult.dispatchUpdatesTo(this)
     }
 }

@@ -60,7 +60,7 @@
         mapbox:layout_constraintEnd_toEndOf="parent"
         />
 
-    <eu.mcomputing.mobv.zadanie.BottomNavigationLayout
+    <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
         android:id="@+id/btm_navUserProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
