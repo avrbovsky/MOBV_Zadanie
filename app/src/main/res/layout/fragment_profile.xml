@@ -1,96 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_profileText"
-        android:text="@string/userProfile"
-        style="@style/Header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+    <data>
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/cl_profileInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_profileText"
-        >
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/iv_picture"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profileText"
+            android:text="@string/userProfile"
+            style="@style/Header"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/cl_profileInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_profileText"
+            >
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/iv_picture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_userName"
+                android:text="User Name"
+                android:layout_marginLeft="30dp"
+                app:layout_constraintStart_toEndOf="@+id/iv_picture"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_profileEmail"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_profileEmail"
+                android:text="User email"
+                android:layout_marginLeft="30dp"
+                app:layout_constraintStart_toEndOf="@id/iv_picture"
+                app:layout_constraintTop_toBottomOf="@+id/tv_userName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sw_toggleLocation"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/cl_profileInfo"
+            app:layout_constraintEnd_toStartOf="@id/tv_toggleLocation"
+            app:layout_constraintStart_toStartOf="parent"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_userName"
-            android:text="User Name"
-            android:layout_marginLeft="30dp"
-            app:layout_constraintStart_toEndOf="@+id/iv_picture"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_profileEmail"
+            android:id="@+id/tv_toggleLocation"
+            android:text="@string/toggleGPS"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toEndOf="@id/sw_toggleLocation"
+            app:layout_constraintTop_toBottomOf="@+id/cl_profileInfo"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <TimePicker
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_toggleLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_profileEmail"
-            android:text="User email"
-            android:layout_marginLeft="30dp"
-            app:layout_constraintStart_toEndOf="@id/iv_picture"
-            app:layout_constraintTop_toBottomOf="@+id/tv_userName"
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/sw_toggleLocation"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/cl_profileInfo"
-        app:layout_constraintEnd_toStartOf="@id/tv_toggleLocation"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_toggleLocation"
-        android:text="@string/toggleGPS"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@id/sw_toggleLocation"
-        app:layout_constraintTop_toBottomOf="@+id/cl_profileInfo"
-        />
-
-    <TimePicker
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_toggleLocation"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

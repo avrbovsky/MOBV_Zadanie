@@ -12,54 +12,64 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.data.api.DataRepository
+import eu.mcomputing.mobv.zadanie.databinding.FragmentSignupBinding
 import eu.mcomputing.mobv.zadanie.viewmodels.AuthViewModel
 
 class RegistrationFragment: Fragment(R.layout.fragment_signup) {
     private lateinit var viewModel: AuthViewModel
+    private var binding: FragmentSignupBinding? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return AuthViewModel(DataRepository.getInstance()) as T
             }
         })[AuthViewModel::class.java]
+    }
 
-        viewModel.registrationResult.observe(viewLifecycleOwner) {
-            if (it.isEmpty()) {
-                requireView().findNavController().navigate(R.id.action_registration_to_login)
-            } else {
-                Snackbar.make(
-                    view.findViewById(R.id.bt_sign_up),
-                    it,
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val emailInput = view.findViewById<TextInputEditText>(R.id.et_registrationEmail)
-        val usernameInput = view.findViewById<TextInputEditText>(R.id.et_registrationUsername)
-        val passwordInput = view.findViewById<TextInputEditText>(R.id.et_registrationPassword)
-        val passwordRepeatInput = view.findViewById<TextInputEditText>(R.id.et_registrationPasswordRepeat)
-        val registerBtn = view.findViewById<MaterialButton>(R.id.bt_sign_up)
+        binding = FragmentSignupBinding.bind(view).apply {
+            lifecycleOwner = viewLifecycleOwner
+        }.also { bnd ->
+            bnd.btSignUp.setOnClickListener {
+                val email: String = bnd.etRegistrationEmail.text.toString()
+                val username: String = bnd.etRegistrationUsername.text.toString()
+                val password: String = bnd.etRegistrationPassword.text.toString()
+                val repeatPassword: String = bnd.etRegistrationPasswordRepeat.text.toString()
 
-        registerBtn.setOnClickListener {
-            val email: String = emailInput.text.toString()
-            val username: String = usernameInput.text.toString()
-            val password: String = passwordInput.text.toString()
-            val repeatPassword: String = passwordRepeatInput.text.toString()
-
-            if(email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty() && repeatPassword.isNotEmpty()){
-                if(password == repeatPassword){
-                    viewModel.registerUser(username,email,password)
-                }
-                else{
+                if(email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty() && repeatPassword.isNotEmpty()){
+                    if(password == repeatPassword){
+                        viewModel.registerUser(username,email,password)
+                    }
+                    else{
+                        // display error message
+                    }
+                } else {
                     // display error message
                 }
-            } else {
-                // display error message
+            }
+
+            viewModel.registrationResult.observe(viewLifecycleOwner) {
+                if (it.isEmpty()) {
+                    requireView().findNavController().navigate(R.id.action_registration_to_login)
+                } else {
+                    Snackbar.make(
+                        view.findViewById(R.id.bt_sign_up),
+                        it,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

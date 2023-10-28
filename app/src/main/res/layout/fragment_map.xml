@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.mapbox.maps.MapView
-        xmlns:mapbox="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/mapView"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        mapbox:layout_constraintTop_toTopOf="parent"
-        mapbox:layout_constraintBottom_toTopOf="@+id/navBar"
-        />
+        android:layout_height="match_parent"
+        >
 
-    <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
-        android:id="@+id/navBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        <com.mapbox.maps.MapView
+            xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            mapbox:layout_constraintTop_toTopOf="parent"
+            mapbox:layout_constraintBottom_toTopOf="@+id/navBar"
+            />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
+            android:id="@+id/navBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
