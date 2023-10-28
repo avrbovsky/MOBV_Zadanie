@@ -35,24 +35,6 @@ class RegistrationFragment: Fragment(R.layout.fragment_signup) {
         binding = FragmentSignupBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
         }.also { bnd ->
-            bnd.btSignUp.setOnClickListener {
-                val email: String = bnd.etRegistrationEmail.text.toString()
-                val username: String = bnd.etRegistrationUsername.text.toString()
-                val password: String = bnd.etRegistrationPassword.text.toString()
-                val repeatPassword: String = bnd.etRegistrationPasswordRepeat.text.toString()
-
-                if(email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty() && repeatPassword.isNotEmpty()){
-                    if(password == repeatPassword){
-                        viewModel.registerUser(username,email,password)
-                    }
-                    else{
-                        // display error message
-                    }
-                } else {
-                    // display error message
-                }
-            }
-
             viewModel.registrationResult.observe(viewLifecycleOwner) {
                 if (it.isEmpty()) {
                     requireView().findNavController().navigate(R.id.action_registration_to_login)

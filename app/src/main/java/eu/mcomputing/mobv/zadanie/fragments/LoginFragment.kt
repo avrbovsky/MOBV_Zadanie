@@ -34,17 +34,6 @@ class LoginFragment:  Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
         }.also { bnd ->
-            bnd.btLogin.setOnClickListener {
-                val username: String = bnd.etLoginUsername.text.toString()
-                val password: String = bnd.etLoginHeslo.text.toString()
-
-                if(username.isNotEmpty() && password.isNotEmpty()){
-                    viewModel.loginUser(username, password)
-                } else{
-                    // display error message
-                }
-            }
-
             viewModel.loginResult.observe(viewLifecycleOwner) {
                 if (it.isEmpty()) {
                     requireView().findNavController().navigate(R.id.action_login_to_map)
