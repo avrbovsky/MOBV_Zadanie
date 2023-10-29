@@ -15,4 +15,6 @@
     <string name="userProfile">User profile</string>
     <string name="toggleGPS">Turn on/off GPS recording</string>
     <string name="signUp">Sign up</string>
+    <string name="loadProfile">Load profile</string>
+    <string name="logout">Log out</string>
 </resources>

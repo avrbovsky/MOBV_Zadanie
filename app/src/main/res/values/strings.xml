@@ -14,4 +14,6 @@
     <string name="userProfile">Profil používateľa</string>
     <string name="toggleGPS">Zapni/Vypni zaznamenávanie okruhu</string>
     <string name="signUp">Registrácia</string>
+    <string name="loadProfile">Načítať profil</string>
+    <string name="logout">Odhlásiť sa</string>
 </resources>

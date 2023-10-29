@@ -62,6 +62,10 @@
         <action
             android:id="@+id/action_profile_to_changePass"
             app:destination="@+id/changePassFragment" />
+
+        <action
+            android:id="@+id/action_profile_to_intro"
+            app:destination="@+id/introFragment" />
     </fragment>
 
     <fragment android:id="@+id/feedFragment" android:name="eu.mcomputing.mobv.zadanie.fragments.FeedFragment">
