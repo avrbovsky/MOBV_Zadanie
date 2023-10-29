@@ -1,7 +1,6 @@
 package eu.mcomputing.mobv.zadanie.data.api
 
-import eu.mcomputing.mobv.zadanie.config.AppConfig
-import eu.mcomputing.mobv.zadanie.data.api.model.RefreshTokenRequest
+import android.content.Context
 import eu.mcomputing.mobv.zadanie.data.api.model.UserLoginRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserRegistrationRequest
 import eu.mcomputing.mobv.zadanie.data.model.User
@@ -17,10 +16,10 @@ class DataRepository private constructor(
         private var INSTANCE: DataRepository? = null
         private val lock = Any()
 
-        fun getInstance(): DataRepository =
+        fun getInstance(context: Context): DataRepository =
             INSTANCE ?: synchronized(lock) {
                 INSTANCE
-                    ?: DataRepository(ApiService.create()).also { INSTANCE = it }
+                    ?: DataRepository(ApiService.create(context)).also { INSTANCE = it }
             }
     }
 
@@ -104,68 +103,17 @@ class DataRepository private constructor(
     }
 
     suspend fun apiGetUser(
-        uid: String,
-        my_uid: String,
-        accessToken: String,
-        refreshToken: String
+        uid: String
     ): Pair<String, User?> {
         try {
-            val response = service.getUser(
-                mapOf(
-                    "x-apikey" to AppConfig.API_KEY,
-                    "Authorization" to "Bearer $accessToken"
-                ), uid
-            )
+            val response = service.getUser(uid)
 
             if (response.isSuccessful) {
                 response.body()?.let {
-                    return Pair(
-                        "",
-                        User(
-                            it.name,
-                            "",
-                            it.id,
-                            accessToken,
-                            refreshToken,
-                            it.photo
-                        )
-                    )
+                    return Pair("", User(it.name, "", it.id, "", "", it.photo))
                 }
             }
 
-            if (response.code() == 401) {
-                val refreshResponse = service.refreshToken(
-                    mapOf(
-                        "x-apikey" to AppConfig.API_KEY,
-                        "x-user" to my_uid
-                    ), RefreshTokenRequest(refreshToken)
-                )
-                if (refreshResponse.isSuccessful) {
-                    refreshResponse.body()?.let { newtoken ->
-                        val response2 = service.getUser(
-                            mapOf(
-                                "x-apikey" to AppConfig.API_KEY,
-                                "Authorization" to "Bearer ${newtoken.access}"
-                            ), uid
-                        )
-                        if (response2.isSuccessful) {
-                            response2.body()?.let {
-                                return Pair(
-                                    "",
-                                    User(
-                                        it.name,
-                                        "",
-                                        it.id,
-                                        newtoken.access,
-                                        newtoken.refresh,
-                                        it.photo
-                                    )
-                                )
-                            }
-                        }
-                    }
-                }
-            }
             return Pair("Failed to load user", null)
         } catch (ex: IOException) {
             ex.printStackTrace()
