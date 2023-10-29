@@ -15,19 +15,25 @@
         <action
             android:id="@+id/action_intro_to_registration"
             app:destination="@id/registrationFragment" />
+
+        <action
+            android:id="@+id/action_intro_to_feed"
+            app:destination="@id/feedFragment" />
     </fragment>
 
     <fragment android:id="@+id/loginFragment" android:name="eu.mcomputing.mobv.zadanie.fragments.LoginFragment">
-        <action android:id="@+id/action_login_to_map"
-            app:destination="@+id/mapFragment" />
+        <action android:id="@+id/action_login_to_feed"
+            app:popUpToInclusive="true"
+            app:destination="@+id/feedFragment" />
 
         <action android:id="@+id/action_login_to_reset"
             app:destination="@+id/passwordResetFragment" />
     </fragment>
 
     <fragment android:id="@+id/registrationFragment" android:name="eu.mcomputing.mobv.zadanie.fragments.RegistrationFragment">
-        <action android:id="@+id/action_registration_to_login"
-            app:destination="@id/loginFragment" />
+        <action android:id="@+id/action_registration_to_feed"
+            app:popUpToInclusive="true"
+            app:destination="@id/feedFragment" />
     </fragment>
 
     <fragment android:id="@+id/mapFragment" android:name="eu.mcomputing.mobv.zadanie.fragments.MapFragment">

@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import eu.mcomputing.mobv.zadanie.R
+import eu.mcomputing.mobv.zadanie.data.PreferenceData
 import eu.mcomputing.mobv.zadanie.data.api.DataRepository
 import eu.mcomputing.mobv.zadanie.databinding.FragmentSignupBinding
 import eu.mcomputing.mobv.zadanie.viewmodels.AuthViewModel
@@ -36,15 +34,20 @@ class RegistrationFragment: Fragment(R.layout.fragment_signup) {
             lifecycleOwner = viewLifecycleOwner
         }.also { bnd ->
             viewModel.registrationResult.observe(viewLifecycleOwner) {
-                if (it.isEmpty()) {
-                    requireView().findNavController().navigate(R.id.action_registration_to_login)
-                } else {
+                if (it.isNotEmpty()){
                     Snackbar.make(
                         view.findViewById(R.id.bt_sign_up),
                         it,
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
+            }
+
+            viewModel.userResult.observe(viewLifecycleOwner) {
+                it?.let { user ->
+                    PreferenceData.getInstance().putUser(requireContext(), user)
+                    requireView().findNavController().navigate(R.id.action_registration_to_feed)
+                } ?: PreferenceData.getInstance().putUser(requireContext(), null)
             }
         }
 
