@@ -14,3 +14,5 @@
 .cxx
 local.properties
 app/src/main/java/eu/mcomputing/mobv/zadanie/config/AppConfig.kt
+app/src/main/res/values/string_mapbox.xml
+

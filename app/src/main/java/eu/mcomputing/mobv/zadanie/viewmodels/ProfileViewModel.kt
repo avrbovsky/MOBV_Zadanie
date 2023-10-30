@@ -15,6 +15,8 @@ class ProfileViewModel(private val dataRepository: DataRepository) : ViewModel()
     private val _userResult = MutableLiveData<User?>()
     val userResult: LiveData<User?> get() = _userResult
 
+    val sharingLocation = MutableLiveData<Boolean?>(null)
+
     fun loadUser(uid: String) {
         viewModelScope.launch {
             val result = dataRepository.apiGetUser(uid)

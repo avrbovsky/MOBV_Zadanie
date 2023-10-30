@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MOBV Zadanie</string>
-    <string name="mapbox_access_token">pk.eyJ1IjoieHZyYm92c2t5YSIsImEiOiJjbDJtMGJnM3Ywczc3M2RucXRlYndqM3FjIn0.B1P-J1RmXov6fX_I1F7cEQ</string>
     <string name="password">Heslo</string>
     <string name="username">Prihlasovacie meno</string>
     <string name="signIn">Prihlásenie</string>
@@ -12,7 +11,7 @@
     <string name="code">Kód</string>
     <string name="sendCode">Zaslať kód</string>
     <string name="userProfile">Profil používateľa</string>
-    <string name="toggleGPS">Zapni/Vypni zaznamenávanie okruhu</string>
+    <string name="toggleGPS">Zdielať polohu</string>
     <string name="signUp">Registrácia</string>
     <string name="loadProfile">Načítať profil</string>
     <string name="logout">Odhlásiť sa</string>

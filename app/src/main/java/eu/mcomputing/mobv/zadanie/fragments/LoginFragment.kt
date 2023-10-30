@@ -31,6 +31,7 @@ class LoginFragment:  Fragment(R.layout.fragment_login) {
 
         binding = FragmentLoginBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
+            model = viewModel
         }.also { bnd ->
             viewModel.loginResult.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {

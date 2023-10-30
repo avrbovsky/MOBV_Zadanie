@@ -32,6 +32,7 @@ class RegistrationFragment: Fragment(R.layout.fragment_signup) {
 
         binding = FragmentSignupBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
+            model = viewModel
         }.also { bnd ->
             viewModel.registrationResult.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()){

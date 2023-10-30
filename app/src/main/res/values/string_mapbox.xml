@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoieHZyYm92c2t5YSIsImEiOiJjbDJtMGJnM3Ywczc3M2RucXRlYndqM3FjIn0.B1P-J1RmXov6fX_I1F7cEQ</string>
+</resources>

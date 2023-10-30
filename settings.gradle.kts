@@ -5,6 +5,12 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+val properties = java.util.Properties()
+file("local.properties").inputStream().use { properties.load(it) }
+
+val mapboxPrivateKey: String? = properties.getProperty("mapboxPrivateKey")
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
@@ -14,7 +20,7 @@ dependencyResolutionManagement {
             url = uri("https://api.mapbox.com/downloads/v2/releases/maven")
             credentials {
                 username = "mapbox"
-                password = "sk.eyJ1IjoieHZyYm92c2t5YSIsImEiOiJjbG4ydmV0NmwwZGthMnFtdTE3NHFmZTQwIn0.jAGGv5RyM0S8WUjTDS2auA"
+                password = mapboxPrivateKey
             }
             authentication {
                 create<BasicAuthentication>("basic")
