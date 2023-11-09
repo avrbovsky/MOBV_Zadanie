@@ -2,23 +2,24 @@ package eu.mcomputing.mobv.zadanie.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.adapters.FeedAdapter
-import eu.mcomputing.mobv.zadanie.data.api.DataRepository
+import eu.mcomputing.mobv.zadanie.data.DataRepository
 import eu.mcomputing.mobv.zadanie.databinding.FragmentFeedBinding
 import eu.mcomputing.mobv.zadanie.viewmodels.FeedViewModel
 import eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
 
-class FeedFragment: Fragment(R.layout.fragment_feed) {
+class FeedFragment: Fragment() {
 
     private lateinit var viewModel: FeedViewModel
 
-    private var binding: FragmentFeedBinding? = null
+    private lateinit var binding: FragmentFeedBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +30,20 @@ class FeedFragment: Fragment(R.layout.fragment_feed) {
             }
         })[FeedViewModel::class.java]
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentFeedBinding.inflate(inflater, container, false)
+        return binding.root
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentFeedBinding.bind(view).apply {
+        binding.apply {
             lifecycleOwner = viewLifecycleOwner
+            model = viewModel
         }.also { bnd ->
             bnd.bottomBar.setActive(BottomBar.FEED)
 
@@ -54,10 +64,5 @@ class FeedFragment: Fragment(R.layout.fragment_feed) {
                 bnd.pullRefresh.isRefreshing = it
             }
         }
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 }

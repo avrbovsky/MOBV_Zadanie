@@ -2,20 +2,20 @@ package eu.mcomputing.mobv.zadanie.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.databinding.FragmentChangePasswordBinding
 import eu.mcomputing.mobv.zadanie.viewmodels.ChangePasswordViewModel
 
-class ChangePasswordFragment: Fragment(R.layout.fragment_change_password) {
+class ChangePasswordFragment: Fragment() {
 
     private lateinit var viewModel: ChangePasswordViewModel
-    private var binding: FragmentChangePasswordBinding? = null
+    private lateinit var binding: FragmentChangePasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,10 +23,19 @@ class ChangePasswordFragment: Fragment(R.layout.fragment_change_password) {
         viewModel = ViewModelProvider(requireActivity())[ChangePasswordViewModel::class.java]
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentChangePasswordBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentChangePasswordBinding.bind(view).apply {
+        binding.apply {
             lifecycleOwner = viewLifecycleOwner
         }.also { bnd ->
             bnd.btResetPassword.setOnClickListener {
@@ -45,10 +54,5 @@ class ChangePasswordFragment: Fragment(R.layout.fragment_change_password) {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 }

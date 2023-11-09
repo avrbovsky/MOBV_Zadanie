@@ -1,6 +1,7 @@
-package eu.mcomputing.mobv.zadanie.data.api
+package eu.mcomputing.mobv.zadanie.data
 
 import android.content.Context
+import eu.mcomputing.mobv.zadanie.data.api.ApiService
 import eu.mcomputing.mobv.zadanie.data.api.model.UserLoginRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserRegistrationRequest
 import eu.mcomputing.mobv.zadanie.data.db.AppRoomDatabase
