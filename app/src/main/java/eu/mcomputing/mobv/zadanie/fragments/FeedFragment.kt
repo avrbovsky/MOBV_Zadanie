@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import eu.mcomputing.mobv.zadanie.viewmodels.FeedViewModel
 import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.adapters.FeedAdapter
+import eu.mcomputing.mobv.zadanie.data.api.DataRepository
 import eu.mcomputing.mobv.zadanie.databinding.FragmentFeedBinding
+import eu.mcomputing.mobv.zadanie.viewmodels.FeedViewModel
 import eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
 
 class FeedFragment: Fragment(R.layout.fragment_feed) {
@@ -21,7 +23,11 @@ class FeedFragment: Fragment(R.layout.fragment_feed) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[FeedViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return FeedViewModel(DataRepository.getInstance(requireContext())) as T
+            }
+        })[FeedViewModel::class.java]
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,15 +41,17 @@ class FeedFragment: Fragment(R.layout.fragment_feed) {
             val feedAdapter = FeedAdapter()
             bnd.feedRecyclerview.adapter = feedAdapter
 
-            // Pozorovanie zmeny hodnoty
             viewModel.feed_items.observe(viewLifecycleOwner) { items ->
-                // Tu môžete aktualizovať UI podľa hodnoty stringValue
                 Log.d("FeedFragment", "nove hodnoty $items")
-                feedAdapter.updateItems(items)
+                feedAdapter.updateItems(items ?: emptyList())
             }
 
-            bnd.btGenerateFeed.setOnClickListener {
+            bnd.pullRefresh.setOnRefreshListener {
                 viewModel.updateItems()
+            }
+
+            viewModel.loading.observe(viewLifecycleOwner) {
+                bnd.pullRefresh.isRefreshing = it
             }
         }
     }
