@@ -1,6 +1,7 @@
 package eu.mcomputing.mobv.zadanie.data.db
 
 import androidx.lifecycle.LiveData
+import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 
 
@@ -24,4 +25,7 @@ class LocalCache(private val dao: DbDao) {
         dao.deleteUserItems()
     }
 
+    suspend fun insertGeofence(item: GeofenceEntity) {
+        dao.insertGeofence(item)
+    }
 }

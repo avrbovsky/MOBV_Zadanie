@@ -4,6 +4,8 @@ import android.content.Context
 import eu.mcomputing.mobv.zadanie.data.api.helper.AuthInterceptor
 import eu.mcomputing.mobv.zadanie.data.api.helper.TokenAuthenticator
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceListResponse
+import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateRequest
+import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.LoginResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.RefreshTokenRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.RefreshTokenResponse
@@ -17,6 +19,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -45,6 +48,13 @@ interface ApiService {
 
     @GET("geofence/list.php")
     suspend fun listGeofence(): Response<List<GeofenceListResponse>>
+
+    @POST("geofence/update.php")
+    suspend fun updateGeofence(@Body body: GeofenceUpdateRequest): Response<GeofenceUpdateResponse>
+
+    @DELETE("geofence/update.php")
+    suspend fun deleteGeofence(): Response<GeofenceUpdateResponse>
+
 
     companion object {
         fun create(context: Context): ApiService {

@@ -17,3 +17,5 @@ data class GeofenceListResponse(
     val radius: Double,
     val photo: String
 )
+
+data class GeofenceUpdateResponse(val success: String)

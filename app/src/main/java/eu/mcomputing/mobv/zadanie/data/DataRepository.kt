@@ -2,10 +2,12 @@ package eu.mcomputing.mobv.zadanie.data
 
 import android.content.Context
 import eu.mcomputing.mobv.zadanie.data.api.ApiService
+import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserLoginRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserRegistrationRequest
 import eu.mcomputing.mobv.zadanie.data.db.AppRoomDatabase
 import eu.mcomputing.mobv.zadanie.data.db.LocalCache
+import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 import eu.mcomputing.mobv.zadanie.data.model.User
 import java.io.IOException
@@ -161,4 +163,46 @@ class DataRepository private constructor(
 
     fun getUsers() = cache.getUsers()
 
+    suspend fun insertGeofence(item: GeofenceEntity) {
+        cache.insertGeofence(item)
+        try {
+            val response =
+                service.updateGeofence(GeofenceUpdateRequest(item.lat, item.lon, item.radius))
+
+            if (response.isSuccessful) {
+                response.body()?.let {
+
+                    item.uploaded = true
+                    cache.insertGeofence(item)
+                    return
+                }
+            }
+
+            return
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
+
+    suspend fun removeGeofence() {
+        try {
+            val response = service.deleteGeofence()
+
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    return
+                }
+            }
+
+            return
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
 }
