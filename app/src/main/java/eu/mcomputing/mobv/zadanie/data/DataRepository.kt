@@ -139,11 +139,11 @@ class DataRepository private constructor(
             val response = service.listGeofence()
 
             if (response.isSuccessful) {
-                response.body()?.let {
+                response.body()?.list?.let {
                     val users = it.map {
                         UserEntity(
                             it.uid, it.name, it.updated,
-                            it.lat, it.lon, it.radius, it.photo
+                            0.0, 0.0, it.radius, it.photo
                         )
                     }
                     cache.insertUserItems(users)
