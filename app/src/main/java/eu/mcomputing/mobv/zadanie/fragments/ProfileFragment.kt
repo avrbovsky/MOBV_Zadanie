@@ -44,7 +44,16 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
 
     private val PERMISSIONS_REQUIRED = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+        Build.VERSION.SDK_INT >= 33 -> {
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                Manifest.permission.POST_NOTIFICATIONS
+            )
+        }
+
+        Build.VERSION.SDK_INT >= 29 -> {
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -220,16 +229,16 @@ class ProfileFragment : Fragment() {
             .build()
 
         val repeatingRequest = PeriodicWorkRequestBuilder<MyWorker>(
-            15, TimeUnit.MINUTES, // repeatInterval
-            5, TimeUnit.MINUTES // flexInterval
+            15, TimeUnit.MINUTES,
+            5, TimeUnit.MINUTES
         )
             .setConstraints(constraints)
-            .addTag("myworker-tag")
+            .addTag("geo-notification")
             .build()
 
         WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
-            "myworker",
-            ExistingPeriodicWorkPolicy.KEEP, // or REPLACE
+            "geoLocationWork",
+            ExistingPeriodicWorkPolicy.KEEP,
             repeatingRequest
         )
     }
