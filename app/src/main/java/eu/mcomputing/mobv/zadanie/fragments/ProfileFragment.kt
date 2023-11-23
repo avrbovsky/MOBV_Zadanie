@@ -33,12 +33,14 @@ import eu.mcomputing.mobv.zadanie.broadcastReceivers.GeofenceBroadcastReceiver
 import eu.mcomputing.mobv.zadanie.data.DataRepository
 import eu.mcomputing.mobv.zadanie.data.PreferenceData
 import eu.mcomputing.mobv.zadanie.databinding.FragmentProfileBinding
+import eu.mcomputing.mobv.zadanie.viewmodels.AuthViewModel
 import eu.mcomputing.mobv.zadanie.viewmodels.ProfileViewModel
 import eu.mcomputing.mobv.zadanie.workers.MyWorker
 import java.util.concurrent.TimeUnit
 
 class ProfileFragment : Fragment() {
     private lateinit var viewModel: ProfileViewModel
+    private lateinit var authViewModel: AuthViewModel
     private lateinit var binding: FragmentProfileBinding
 
     private val PERMISSIONS_REQUIRED = when {
@@ -74,6 +76,12 @@ class ProfileFragment : Fragment() {
                 return ProfileViewModel(DataRepository.getInstance(requireContext())) as T
             }
         })[ProfileViewModel::class.java]
+
+        authViewModel = ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return AuthViewModel(DataRepository.getInstance(requireContext())) as T
+            }
+        })[AuthViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -100,6 +108,7 @@ class ProfileFragment : Fragment() {
 
             bnd.btLogout.setOnClickListener {
                 PreferenceData.getInstance().clearData(requireContext())
+                authViewModel.logout()
                 it.findNavController().navigate(R.id.action_profile_to_intro)
             }
 
