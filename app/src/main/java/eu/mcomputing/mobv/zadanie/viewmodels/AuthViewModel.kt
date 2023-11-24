@@ -32,7 +32,9 @@ class AuthViewModel(private val dataRepository: DataRepository) : ViewModel() {
             )
             _registrationResult.postValue(result.first ?: "")
             _userResult.postValue(result.second)
-            clearData()
+            if(result.second != null){
+                clearData()
+            }
         }
     }
 
@@ -41,7 +43,9 @@ class AuthViewModel(private val dataRepository: DataRepository) : ViewModel() {
             val result = dataRepository.apiLoginUser(username.value ?: "", password.value ?: "")
             _loginResult.postValue(result.first ?: "")
             _userResult.postValue(result.second)
-            clearData()
+            if(result.second != null){
+                clearData()
+            }
         }
     }
 

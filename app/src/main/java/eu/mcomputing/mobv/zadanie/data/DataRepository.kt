@@ -1,6 +1,7 @@
 package eu.mcomputing.mobv.zadanie.data
 
 import android.content.Context
+import android.util.Log
 import eu.mcomputing.mobv.zadanie.data.api.ApiService
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserLoginRequest
@@ -51,6 +52,10 @@ class DataRepository private constructor(
             val response = service.registerUser(UserRegistrationRequest(username, email, password))
             if (response.isSuccessful) {
                 response.body()?.let { json_response ->
+                    Log.d("Response", json_response.uid)
+                    if(json_response.uid == "-1" || json_response.uid == "-2"){
+                        return Pair("Failed to create user, username or email already in use", null)
+                    }
                     return Pair(
                         "",
                         User(
