@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.data.DataRepository
@@ -43,6 +43,8 @@ class LoginFragment:  Fragment() {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel
         }.also { bnd ->
+            val navController = findNavController()
+
             viewModel.loginResult.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     Snackbar.make(
@@ -53,10 +55,14 @@ class LoginFragment:  Fragment() {
                 }
             }
 
+            bnd.tvForgotPassword.setOnClickListener{
+                navController.navigate(R.id.action_login_to_reset)
+            }
+
             viewModel.userResult.observe(viewLifecycleOwner) {
                 it?.let { user ->
                     PreferenceData.getInstance().putUser(requireContext(), user)
-                    requireView().findNavController().navigate(R.id.action_login_to_feed)
+                    navController.navigate(R.id.action_login_to_feed)
                 } ?: PreferenceData.getInstance().putUser(requireContext(), null)
             }
         }
