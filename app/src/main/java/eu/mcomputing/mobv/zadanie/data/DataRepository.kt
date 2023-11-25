@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import eu.mcomputing.mobv.zadanie.data.api.ApiService
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateRequest
+import eu.mcomputing.mobv.zadanie.data.api.model.PasswordResetRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserLoginRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserRegistrationRequest
 import eu.mcomputing.mobv.zadanie.data.db.AppRoomDatabase
@@ -54,7 +55,7 @@ class DataRepository private constructor(
                 response.body()?.let { json_response ->
                     Log.d("Response", json_response.uid)
                     if(json_response.uid == "-1" || json_response.uid == "-2"){
-                        return Pair("Failed to create user, username or email already in use", null)
+                        return Pair("Failed to create user, username or email already in use.", null)
                     }
                     return Pair(
                         "",
@@ -78,15 +79,39 @@ class DataRepository private constructor(
         return Pair("Fatal error. Failed to create user.", null)
     }
 
+    suspend fun apiResetPassword(email: String): Pair<String, Boolean> {
+        if (email.isEmpty()){
+            return Pair("Email can not be empty.", false)
+        }
+        try {
+            val response = service.resetPassword(PasswordResetRequest(email))
+            if(response.isSuccessful) {
+                response.body()?.let { json_response ->
+                    if (json_response.status == "failure") {
+                        return Pair(json_response.message, false)
+                    }
+                    return Pair("", true)
+                }
+            }
+            return Pair("Failed to request reset email.", false)
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return Pair("Check internet connection. Failed to request reset email.", false)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        return Pair("Fatal error. Failed to request reset email.", false)
+    }
+
     suspend fun apiLoginUser(
         username: String,
         password: String
     ): Pair<String, User?> {
         if (username.isEmpty()) {
-            return Pair("Username can not be empty", null)
+            return Pair("Username can not be empty.", null)
         }
         if (password.isEmpty()) {
-            return Pair("Password can not be empty", null)
+            return Pair("Password can not be empty.", null)
         }
         try {
             val response = service.loginUser(UserLoginRequest(username, password))

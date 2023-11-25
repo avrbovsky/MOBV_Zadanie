@@ -7,6 +7,8 @@ import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceListResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.LoginResponse
+import eu.mcomputing.mobv.zadanie.data.api.model.PasswordResetRequest
+import eu.mcomputing.mobv.zadanie.data.api.model.PasswordResetResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.RefreshTokenRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.RefreshTokenResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.RegistrationResponse
@@ -45,6 +47,11 @@ interface ApiService {
     fun refreshTokenBlocking(
         @Body refreshInfo: RefreshTokenRequest
     ): Call<RefreshTokenResponse>
+
+    @POST("user/reset.php")
+    suspend fun resetPassword(
+        @Body emailInfo: PasswordResetRequest
+    ): Response<PasswordResetResponse>
 
     @GET("geofence/list.php")
     suspend fun listGeofence(): Response<GeofenceListResponse>
