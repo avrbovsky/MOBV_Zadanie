@@ -104,27 +104,29 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val user = PreferenceData.getInstance().getUser(requireContext())
+        user?.let {
+            viewModel.loadUser(it.id)
+        }
+
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel
         }.also { bnd ->
-            bnd.btLoadProfile.setOnClickListener {
-                val user = PreferenceData.getInstance().getUser(requireContext())
-                user?.let {
-                    viewModel.loadUser(it.id)
-                }
-            }
-
             bnd.btLogout.setOnClickListener {
                 PreferenceData.getInstance().clearData(requireContext())
                 authViewModel.logout()
                 it.findNavController().navigate(R.id.action_profile_to_intro)
             }
 
+            bnd.btChangePassword.setOnClickListener{
+                it.findNavController().navigate(R.id.action_profile_to_changePass)
+            }
+
             viewModel.profileResult.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     Snackbar.make(
-                        bnd.btLoadProfile,
+                        bnd.btChangePassword,
                         it,
                         Snackbar.LENGTH_SHORT
                     ).show()

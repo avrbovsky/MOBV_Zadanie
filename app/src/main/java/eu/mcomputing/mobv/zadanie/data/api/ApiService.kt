@@ -7,6 +7,8 @@ import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceListResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.LoginResponse
+import eu.mcomputing.mobv.zadanie.data.api.model.PasswordChangeRequest
+import eu.mcomputing.mobv.zadanie.data.api.model.PasswordChangeResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.PasswordResetRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.PasswordResetResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.RefreshTokenRequest
@@ -52,6 +54,9 @@ interface ApiService {
     suspend fun resetPassword(
         @Body emailInfo: PasswordResetRequest
     ): Response<PasswordResetResponse>
+
+    @POST("user/password.php")
+    suspend fun changePassword(@Body passwordInfo: PasswordChangeRequest): Response<PasswordChangeResponse>
 
     @GET("geofence/list.php")
     suspend fun listGeofence(): Response<GeofenceListResponse>

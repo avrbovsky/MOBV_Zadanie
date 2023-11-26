@@ -1,14 +1,16 @@
 package eu.mcomputing.mobv.zadanie.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import eu.mcomputing.mobv.zadanie.R
+import eu.mcomputing.mobv.zadanie.data.DataRepository
 import eu.mcomputing.mobv.zadanie.databinding.FragmentChangePasswordBinding
 import eu.mcomputing.mobv.zadanie.viewmodels.ChangePasswordViewModel
 
@@ -20,7 +22,11 @@ class ChangePasswordFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[ChangePasswordViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return ChangePasswordViewModel(DataRepository.getInstance(requireContext())) as T
+            }
+        })[ChangePasswordViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -37,20 +43,24 @@ class ChangePasswordFragment: Fragment() {
 
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
+            model = viewModel
         }.also { bnd ->
-            bnd.btResetPassword.setOnClickListener {
-                val oldPassword: String = bnd.etOldPassword.text.toString()
-                val newPassword: String = bnd.etNewPassword.text.toString()
-                val newPasswordAgain: String = bnd.etNewPasswordAgain.text.toString()
+            val navController = findNavController()
 
-                Log.d("A", oldPassword)
+            viewModel.messageResult.observe(viewLifecycleOwner){
+                if (it.isNotEmpty()) {
+                    Snackbar.make(
+                        view.findViewById(R.id.bt_changePassword),
+                        it,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
 
-                if(oldPassword.isNotEmpty() && newPassword.isNotEmpty() && newPasswordAgain.isNotEmpty()) {
-                    // validacie
-
-                    findNavController().navigate(R.id.action_changePass_to_profile)
-                } else {
-                    // display error message
+            viewModel.statusResult.observe(viewLifecycleOwner){
+                if(it){
+                    viewModel.resetState()
+                    navController.navigate(R.id.action_changePass_to_profile)
                 }
             }
         }

@@ -82,8 +82,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_loadProfile"
-            android:text="@string/loadProfile"
+            android:id="@+id/bt_changePassword"
+            android:text="Change password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
             app:layout_constraintEnd_toStartOf="@+id/bt_logout" />
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/bt_logout"
             android:text="@string/logout"
-            app:layout_constraintStart_toEndOf="@id/bt_loadProfile"
+            app:layout_constraintStart_toEndOf="@id/bt_changePassword"
             app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
             app:layout_constraintEnd_toEndOf="parent" />
 
