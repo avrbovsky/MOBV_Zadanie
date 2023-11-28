@@ -45,28 +45,15 @@
                 />
 
             <TextView
+                android:id="@+id/tv_userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_userName"
-                android:text="@{model.userResult.username}"
-                tools:text="User Name"
                 android:layout_marginLeft="30dp"
+                android:text="@{model.userResult.username}"
                 app:layout_constraintStart_toEndOf="@+id/iv_picture"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_profileEmail"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_profileEmail"
-                android:text="@{model.userResult.email}"
-                tools:text="example@example.com"
-                android:layout_marginLeft="30dp"
-                app:layout_constraintStart_toEndOf="@id/iv_picture"
-                app:layout_constraintTop_toBottomOf="@+id/tv_userName"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                tools:text="User Name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,6 +64,16 @@
             android:layout_marginTop="20dp"
             android:text="@string/toggleGPS"
             app:layout_constraintTop_toBottomOf="@+id/cl_profileInfo"
+            />
+
+        <com.mapbox.maps.MapView
+            xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="10dp"
+            mapbox:layout_constraintTop_toBottomOf="@+id/sw_toggleLocation"
+            mapbox:layout_constraintBottom_toTopOf="@+id/bt_changePassword"
             />
 
         <Button

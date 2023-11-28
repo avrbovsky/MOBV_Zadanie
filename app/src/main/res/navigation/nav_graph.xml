@@ -66,6 +66,10 @@
         <action
             android:id="@+id/action_profile_to_intro"
             app:destination="@+id/introFragment" />
+
+        <action
+            android:id="@+id/action_profile_to_changePicture"
+            app:destination="@+id/changeProfilePictureFragment" />
     </fragment>
 
     <fragment android:id="@+id/feedFragment" android:name="eu.mcomputing.mobv.zadanie.fragments.FeedFragment">
@@ -100,6 +104,11 @@
             app:destination="@+id/profileFragment" />
     </fragment>
 
+    <fragment android:id="@+id/changeProfilePictureFragment" android:name="eu.mcomputing.mobv.zadanie.fragments.ProfilePictureChangeFragment">
+        <action
+            android:id="@+id/action_changePicture_to_profile"
+            app:destination="@+id/profileFragment" />
+    </fragment>
 
     <action
         android:id="@+id/action_to_feed"

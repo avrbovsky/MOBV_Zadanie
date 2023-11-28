@@ -3,6 +3,7 @@ package eu.mcomputing.mobv.zadanie.data.api
 import android.content.Context
 import eu.mcomputing.mobv.zadanie.data.api.helper.AuthInterceptor
 import eu.mcomputing.mobv.zadanie.data.api.helper.TokenAuthenticator
+import eu.mcomputing.mobv.zadanie.data.api.model.DeleteProfilePictureResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceListResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.GeofenceUpdateResponse
@@ -14,9 +15,11 @@ import eu.mcomputing.mobv.zadanie.data.api.model.PasswordResetResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.RefreshTokenRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.RefreshTokenResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.RegistrationResponse
+import eu.mcomputing.mobv.zadanie.data.api.model.UploadProfilePictureResponse
 import eu.mcomputing.mobv.zadanie.data.api.model.UserLoginRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserRegistrationRequest
 import eu.mcomputing.mobv.zadanie.data.api.model.UserResponse
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Response
@@ -25,8 +28,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface ApiService {
     @POST("user/create.php")
@@ -57,6 +63,13 @@ interface ApiService {
 
     @POST("user/password.php")
     suspend fun changePassword(@Body passwordInfo: PasswordChangeRequest): Response<PasswordChangeResponse>
+
+    @Multipart
+    @POST
+    suspend fun uploadProfilePicture(@Url fullUrl: String, @Part image: MultipartBody.Part): Response<UploadProfilePictureResponse>
+
+    @DELETE
+    suspend fun deleteProfilePicture(@Url fullUrl: String): Response<DeleteProfilePictureResponse>
 
     @GET("geofence/list.php")
     suspend fun listGeofence(): Response<GeofenceListResponse>

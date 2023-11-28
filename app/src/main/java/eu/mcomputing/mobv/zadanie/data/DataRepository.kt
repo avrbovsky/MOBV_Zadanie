@@ -13,6 +13,9 @@ import eu.mcomputing.mobv.zadanie.data.db.LocalCache
 import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 import eu.mcomputing.mobv.zadanie.data.model.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 import java.io.IOException
 
 class DataRepository private constructor(
@@ -187,6 +190,54 @@ class DataRepository private constructor(
             ex.printStackTrace()
         }
         return Pair("Fatal error. Failed to load user.", null)
+    }
+
+    suspend fun apiUploadPicture(file: File?): Pair<String, Boolean> {
+        if (file == null) {
+            return Pair("File can not be empty", false)
+        }
+
+        try {
+            val image = MultipartBody.Part.createFormData("image", file.name, file.asRequestBody())
+
+            val response = service.uploadProfilePicture("https://upload.mcomputing.eu/user/photo.php", image)
+            if (response.isSuccessful) {
+                response.body()?.let { json_response ->
+                    if (json_response.id.isNotEmpty()) {
+                        return Pair("Profile picture changed successfully.", true)
+                    }
+                    return Pair(
+                        json_response.status,
+                        false
+                    )
+                }
+            }
+            return Pair("Failed to change profile picture.", false)
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return Pair("Check internet connection. Failed to change profile picture.", false)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        return Pair("Fatal error. Failed to change profile picture.", false)
+    }
+
+    suspend fun apiDeletePicture(): Pair<String, Boolean> {
+        try {
+            val response = service.deleteProfilePicture("https://upload.mcomputing.eu/user/photo.php")
+            if (response.isSuccessful) {
+                response.body()?.let { json_response ->
+                    return Pair("Profile picture changed successfully.", true)
+                }
+            }
+            return Pair("Failed to change profile picture.", false)
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return Pair("Check internet connection. Failed to change profile picture.", false)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        return Pair("Fatal error. Failed to change profile picture.", false)
     }
 
     suspend fun apiListGeofence(): String {

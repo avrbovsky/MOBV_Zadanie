@@ -3,9 +3,11 @@ package eu.mcomputing.mobv.zadanie.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 import eu.mcomputing.mobv.zadanie.utils.ItemDiffCallback
@@ -23,6 +25,7 @@ class FeedAdapter: RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.tv_feedItemText).text = items[position].name
+        loadProfilePicture(holder, position)
     }
 
     override fun getItemCount() = items.size
@@ -32,5 +35,18 @@ class FeedAdapter: RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         items = newItems
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    private fun loadProfilePicture(holder: FeedViewHolder, position: Int){
+        val imageView:ImageView = holder.itemView.findViewById<ImageView>(R.id.iv_feedItemImage)
+        val baseUrl = "https://upload.mcomputing.eu/"
+        val photoUrl: String = items[position].photo
+
+        Picasso.get()
+            .load(baseUrl + photoUrl)
+            .placeholder(R.drawable.ic_account_box)
+            .resize(60, 60)
+            .centerCrop()
+            .into(imageView)
     }
 }

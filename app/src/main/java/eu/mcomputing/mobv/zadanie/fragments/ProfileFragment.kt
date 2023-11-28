@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -28,10 +29,12 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.broadcastReceivers.GeofenceBroadcastReceiver
 import eu.mcomputing.mobv.zadanie.data.DataRepository
 import eu.mcomputing.mobv.zadanie.data.PreferenceData
+import eu.mcomputing.mobv.zadanie.data.model.User
 import eu.mcomputing.mobv.zadanie.databinding.FragmentProfileBinding
 import eu.mcomputing.mobv.zadanie.viewmodels.AuthViewModel
 import eu.mcomputing.mobv.zadanie.viewmodels.ProfileViewModel
@@ -113,6 +116,12 @@ class ProfileFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel
         }.also { bnd ->
+            val navController = findNavController()
+
+            bnd.ivPicture.setOnClickListener{
+                navController.navigate(R.id.action_profile_to_changePicture)
+            }
+
             bnd.btLogout.setOnClickListener {
                 PreferenceData.getInstance().clearData(requireContext())
                 authViewModel.logout()
@@ -121,6 +130,10 @@ class ProfileFragment : Fragment() {
 
             bnd.btChangePassword.setOnClickListener{
                 it.findNavController().navigate(R.id.action_profile_to_changePass)
+            }
+
+            viewModel.userResult.observe(viewLifecycleOwner) {
+                loadProfile(bnd, it)
             }
 
             viewModel.profileResult.observe(viewLifecycleOwner) {
@@ -215,6 +228,18 @@ class ProfileFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun loadProfile(binding: FragmentProfileBinding, user: User?){
+        val baseUrl = "https://upload.mcomputing.eu/"
+        val photoUrl: String = user?.photo ?: ""
+
+        Picasso.get()
+            .load(baseUrl + photoUrl)
+            .placeholder(R.drawable.ic_account_box)
+            .resize(60, 60)
+            .centerCrop()
+            .into(binding.ivPicture)
     }
 
     private fun removeGeofence() {
