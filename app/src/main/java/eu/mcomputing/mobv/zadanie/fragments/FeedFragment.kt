@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.adapters.FeedAdapter
 import eu.mcomputing.mobv.zadanie.data.DataRepository
 import eu.mcomputing.mobv.zadanie.databinding.FragmentFeedBinding
+import eu.mcomputing.mobv.zadanie.interfaces.ItemClick
 import eu.mcomputing.mobv.zadanie.viewmodels.FeedViewModel
 import eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
 
@@ -48,7 +51,15 @@ class FeedFragment: Fragment() {
             bnd.bottomBar.setActive(BottomBar.FEED)
 
             bnd.feedRecyclerview.layoutManager = LinearLayoutManager(context)
-            val feedAdapter = FeedAdapter()
+            val feedAdapter = FeedAdapter(object: ItemClick {
+                override fun onItemClick(userId: String) {
+                    val userBundle = Bundle().apply {
+                        putString("userId", userId)
+                    }
+
+                    findNavController().navigate(R.id.action_feed_to_userProfile, userBundle)
+                }
+            })
             bnd.feedRecyclerview.adapter = feedAdapter
 
             viewModel.feed_items.observe(viewLifecycleOwner) { items ->

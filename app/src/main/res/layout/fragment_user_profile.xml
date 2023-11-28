@@ -1,70 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_userProfileText"
-        android:text="@string/userProfile"
-        style="@style/Header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+    <data>
+        <variable
+            name="model"
+            type="eu.mcomputing.mobv.zadanie.viewmodels.ProfileViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/cl_userProfileInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_userProfileText"
-        >
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/iv_userPicture"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_otherUserName"
-            android:text="User Name"
-            android:layout_marginLeft="30dp"
-            app:layout_constraintStart_toEndOf="@+id/iv_userPicture"
+            android:id="@+id/tv_userProfileText"
+            android:text="@string/userProfile"
+            style="@style/Header"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/cl_userProfileInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_userProfileText"
+            >
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/iv_userPicture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_otherUserName"
+                android:text="@{model.userResult.username}"
+                android:layout_marginLeft="30dp"
+                app:layout_constraintStart_toEndOf="@+id/iv_userPicture"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="User Name"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.mapbox.maps.MapView
+            xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            mapbox:layout_constraintTop_toBottomOf="@id/cl_userProfileInfo"
+            mapbox:layout_constraintBottom_toTopOf="@+id/btm_navUserProfile"
+            mapbox:layout_constraintEnd_toStartOf="parent"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
+            android:id="@+id/btm_navUserProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.mapbox.maps.MapView
-        xmlns:mapbox="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        mapbox:layout_constraintTop_toBottomOf="@id/cl_userProfileInfo"
-        mapbox:layout_constraintBottom_toTopOf="@+id/btm_navUserProfile"
-        mapbox:layout_constraintEnd_toStartOf="parent"
-        mapbox:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar
-        android:id="@+id/btm_navUserProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

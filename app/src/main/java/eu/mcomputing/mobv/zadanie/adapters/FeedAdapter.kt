@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
+import eu.mcomputing.mobv.zadanie.interfaces.ItemClick
 import eu.mcomputing.mobv.zadanie.utils.ItemDiffCallback
 
-class FeedAdapter: RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
+class FeedAdapter(private val click: ItemClick): RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
     private var items: List<UserEntity> = listOf()
 
     class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -26,6 +27,9 @@ class FeedAdapter: RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.tv_feedItemText).text = items[position].name
         loadProfilePicture(holder, position)
+        holder.itemView.setOnClickListener{
+            click.onItemClick(items[position].uid)
+        }
     }
 
     override fun getItemCount() = items.size
