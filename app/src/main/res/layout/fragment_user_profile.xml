@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="eu.mcomputing.mobv.zadanie.viewmodels.ProfileViewModel" />
+            type="eu.mcomputing.mobv.zadanie.viewmodels.UserProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_otherUserName"
-                android:text="@{model.userResult.username}"
+                android:text="@{model.userResult.name}"
                 android:layout_marginLeft="30dp"
                 app:layout_constraintStart_toEndOf="@+id/iv_userPicture"
                 app:layout_constraintTop_toTopOf="parent"
@@ -58,16 +58,16 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.mapbox.maps.MapView
-            xmlns:mapbox="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/mapView"
+        <fragment
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map_fragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            mapbox:layout_constraintTop_toBottomOf="@id/cl_userProfileInfo"
-            mapbox:layout_constraintBottom_toTopOf="@+id/btm_navUserProfile"
-            mapbox:layout_constraintEnd_toStartOf="parent"
-            mapbox:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_userProfileInfo"
+            app:layout_constraintBottom_toTopOf="@+id/btm_navUserProfile"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
         <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar

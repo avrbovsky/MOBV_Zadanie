@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -28,12 +29,17 @@ import androidx.work.WorkManager
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.broadcastReceivers.GeofenceBroadcastReceiver
 import eu.mcomputing.mobv.zadanie.data.DataRepository
 import eu.mcomputing.mobv.zadanie.data.PreferenceData
+import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
 import eu.mcomputing.mobv.zadanie.data.model.User
 import eu.mcomputing.mobv.zadanie.databinding.FragmentProfileBinding
 import eu.mcomputing.mobv.zadanie.viewmodels.AuthViewModel
@@ -45,6 +51,7 @@ class ProfileFragment : Fragment() {
     private lateinit var viewModel: ProfileViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var mapFragment: SupportMapFragment
 
     private val PERMISSIONS_REQUIRED = when {
         Build.VERSION.SDK_INT >= 33 -> {
@@ -101,6 +108,9 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment_profile) as SupportMapFragment
+
         return binding.root
     }
 
@@ -117,6 +127,10 @@ class ProfileFragment : Fragment() {
             model = viewModel
         }.also { bnd ->
             val navController = findNavController()
+
+            viewModel.geofences.observe(viewLifecycleOwner) {
+                drawLastGeofence(it)
+            }
 
             bnd.ivPicture.setOnClickListener{
                 navController.navigate(R.id.action_profile_to_changePicture)
@@ -171,10 +185,7 @@ class ProfileFragment : Fragment() {
 
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) {
-            // Logika pre prácu s poslednou polohou
-            Log.d("ProfileFragment", "poloha posledna ${it ?: "-"}")
             if (it == null) {
-                Log.e("ProfileFragment", "poloha neznama geofence nevytvoreny")
             } else {
                 setupGeofence(it)
             }
@@ -194,7 +205,7 @@ class ProfileFragment : Fragment() {
 
         val geofence = Geofence.Builder()
             .setRequestId("my-geofence")
-            .setCircularRegion(location.latitude, location.longitude, 100f) // 100m polomer
+            .setCircularRegion(location.latitude, location.longitude, 100f)
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
             .build()
@@ -215,13 +226,10 @@ class ProfileFragment : Fragment() {
 
         geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent).run {
             addOnSuccessListener {
-                // Geofences boli úspešne pridané
-                Log.d("ProfileFragment", "geofence vytvoreny")
                 viewModel.updateGeofence(location.latitude, location.longitude, 100.0)
                 runWorker()
             }
             addOnFailureListener {
-                // Chyba pri pridaní geofences
                 it.printStackTrace()
                 binding.swToggleLocation.isChecked = false
                 PreferenceData.getInstance().putSharing(requireContext(), false)
@@ -272,5 +280,30 @@ class ProfileFragment : Fragment() {
 
     private fun cancelWorker() {
         WorkManager.getInstance(requireContext()).cancelUniqueWork("myworker")
+    }
+
+    private fun drawLastGeofence(geofences: List<GeofenceEntity>?){
+        geofences?.let {
+            mapFragment.getMapAsync {
+                it.clear()
+                val geofence = geofences.last()
+
+                it.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(
+                            geofence.lat,
+                            geofence.lon
+                        ), 16.0F
+                    )
+                )
+                it.addCircle(
+                    CircleOptions()
+                        .center(LatLng(geofence.lat, geofence.lon))
+                        .radius(100.0)
+                        .fillColor(Color.argb(100, 200, 150, 255))
+                        .strokeColor(Color.rgb(150, 100, 200))
+                )
+            }
+        }
     }
 }

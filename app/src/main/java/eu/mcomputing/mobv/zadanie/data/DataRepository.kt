@@ -13,11 +13,12 @@ import eu.mcomputing.mobv.zadanie.data.db.LocalCache
 import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 import eu.mcomputing.mobv.zadanie.data.model.User
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.IOException
-
 class DataRepository private constructor(
     private val service: ApiService,
     private val cache: LocalCache
@@ -255,6 +256,9 @@ class DataRepository private constructor(
                     cache.insertUserItems(users)
                     return ""
                 }
+                response.body()?.me?.let {
+
+                }
             }
 
             return "Failed to load users"
@@ -295,6 +299,14 @@ class DataRepository private constructor(
         }
     }
 
+    fun getGeofences() = cache.getGeofences()
+
+    suspend fun getUserFromCache(id: String): UserEntity? {
+        return withContext(Dispatchers.IO) {
+            cache.getUserItem(id)
+        }
+    }
+
     suspend fun removeGeofence() {
         try {
             val response = service.deleteGeofence()
@@ -314,3 +326,4 @@ class DataRepository private constructor(
         }
     }
 }
+

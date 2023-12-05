@@ -3,6 +3,7 @@ package eu.mcomputing.mobv.zadanie.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import eu.mcomputing.mobv.zadanie.data.DataRepository
 import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
@@ -15,6 +16,8 @@ class ProfileViewModel(private val dataRepository: DataRepository) : ViewModel()
 
     private val _userResult = MutableLiveData<User?>()
     val userResult: LiveData<User?> get() = _userResult
+
+    val geofences: LiveData<List<GeofenceEntity>?> = liveData{ emitSource(dataRepository.getGeofences()) }
 
     fun loadUser(uid: String) {
         viewModelScope.launch {

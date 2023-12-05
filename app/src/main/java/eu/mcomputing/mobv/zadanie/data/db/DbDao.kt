@@ -17,7 +17,7 @@ interface DbDao {
     suspend fun insertUserItems(items: List<UserEntity>)
 
     @Query("select * from users where uid=:uid")
-    fun getUserItem(uid: String): LiveData<UserEntity?>
+    fun getUserItem(uid: String): UserEntity?
 
     @Query("select * from users")
     fun getUsers(): LiveData<List<UserEntity>?>
@@ -27,5 +27,8 @@ interface DbDao {
 
     @Query("delete from users")
     suspend fun deleteUserItems()
+
+    @Query("SELECT * FROM geofence")
+    fun getGeofences(): LiveData<List<GeofenceEntity>?>
 
 }

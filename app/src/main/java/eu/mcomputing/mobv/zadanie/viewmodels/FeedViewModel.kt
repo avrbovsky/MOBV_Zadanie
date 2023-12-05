@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import eu.mcomputing.mobv.zadanie.data.DataRepository
+import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 import eu.mcomputing.mobv.zadanie.utils.Evento
 import kotlinx.coroutines.launch
@@ -18,6 +19,8 @@ class FeedViewModel(private val repository: DataRepository) : ViewModel() {
             loading.postValue(false)
             emitSource(repository.getUsers())
         }
+
+    val geofences: LiveData<List<GeofenceEntity>?> = liveData{ emitSource(repository.getGeofences()) }
 
     val loading = MutableLiveData(false)
 

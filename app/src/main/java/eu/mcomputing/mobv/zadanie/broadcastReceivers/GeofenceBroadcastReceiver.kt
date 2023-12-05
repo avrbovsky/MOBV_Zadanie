@@ -67,7 +67,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
         val geofence = Geofence.Builder()
             .setRequestId("my-geofence")
-            .setCircularRegion(location.latitude, location.longitude, 100f) // 100m polomer
+            .setCircularRegion(location.latitude, location.longitude, 100f)
             .setExpirationDuration(Geofence.NEVER_EXPIRE)
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
             .build()
@@ -86,16 +86,13 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // permission issue, geofence not created
             Log.e("GeofenceBroadcastReceiver", "error 5")
             return
         }
         geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent).run {
             addOnSuccessListener {
-                // Geofences boli úspešne pridané
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        // you code here
                         Log.d("GeofenceBroadcastReceiver", "novy geofence vytvoreny")
                         DataRepository.getInstance(context).insertGeofence(
                             GeofenceEntity(
@@ -111,7 +108,6 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
             }
             addOnFailureListener {
-                // Chyba pri pridaní geofences
                 Log.e("GeofenceBroadcastReceiver", "error 6")
             }
         }

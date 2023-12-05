@@ -18,7 +18,7 @@ class LocalCache(private val dao: DbDao) {
         }
     }
 
-    fun getUserItem(uid: String): LiveData<UserEntity?> {
+    fun getUserItem(uid: String): UserEntity? {
         return dao.getUserItem(uid)
     }
 
@@ -33,4 +33,6 @@ class LocalCache(private val dao: DbDao) {
     suspend fun insertGeofence(item: GeofenceEntity) {
         dao.insertGeofence(item)
     }
+
+    fun getGeofences(): LiveData<List<GeofenceEntity>?> = dao.getGeofences()
 }
