@@ -65,9 +65,17 @@
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@id/cl_userProfileInfo"
-            app:layout_constraintBottom_toTopOf="@+id/btm_navUserProfile"
+            app:layout_constraintBottom_toTopOf="@+id/tv_lastSeen"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_lastSeen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btm_navUserProfile"
             />
 
         <eu.mcomputing.mobv.zadanie.widgets.bottomBar.BottomBar

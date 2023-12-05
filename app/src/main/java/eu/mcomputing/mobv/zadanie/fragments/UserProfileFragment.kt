@@ -59,10 +59,25 @@ class UserProfileFragment:  Fragment() {
         }.also {bnd ->
             viewModel.userResult.observe(viewLifecycleOwner) {
                 loadProfile(bnd, it)
+
+                it?.let {
+                    bnd.tvLastSeen.text = "Last seen: ${it.updated}"
+                }
             }
 
             viewModel.geofences.observe(viewLifecycleOwner){
                 drawLastGeofence(it)
+//                it?.last()?.let { geofence ->
+//                    val dateTime = LocalDateTime.ofInstant(
+//                        Instant.ofEpochMilli(geofence.time),
+//                        ZoneId.systemDefault()
+//                    )
+//
+//                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+//                    val formattedDateTime = dateTime.format(formatter)
+//
+//                    bnd.tvLastSeen.text = "Last seen: $formattedDateTime"
+//                }
             }
         }
     }
