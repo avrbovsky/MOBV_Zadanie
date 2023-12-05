@@ -18,6 +18,7 @@ import eu.mcomputing.mobv.zadanie.data.DataRepository
 import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 import eu.mcomputing.mobv.zadanie.databinding.FragmentUserProfileBinding
+import eu.mcomputing.mobv.zadanie.utils.PicassoUtils
 import eu.mcomputing.mobv.zadanie.viewmodels.UserProfileViewModel
 
 class UserProfileFragment:  Fragment() {
@@ -90,6 +91,7 @@ class UserProfileFragment:  Fragment() {
             .load(baseUrl + photoUrl)
             .placeholder(R.drawable.ic_account_box)
             .resize(60, 60)
+            .transform(PicassoUtils.circleTransformation)
             .centerCrop()
             .into(binding.ivUserPicture)
     }

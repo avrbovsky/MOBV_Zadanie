@@ -12,6 +12,7 @@ import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 import eu.mcomputing.mobv.zadanie.interfaces.ItemClick
 import eu.mcomputing.mobv.zadanie.utils.ItemDiffCallback
+import eu.mcomputing.mobv.zadanie.utils.PicassoUtils
 
 class FeedAdapter(private val click: ItemClick): RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
     private var items: List<UserEntity> = listOf()
@@ -49,6 +50,7 @@ class FeedAdapter(private val click: ItemClick): RecyclerView.Adapter<FeedAdapte
         Picasso.get()
             .load(baseUrl + photoUrl)
             .placeholder(R.drawable.ic_account_box)
+            .transform(PicassoUtils.circleTransformation)
             .resize(60, 60)
             .centerCrop()
             .into(imageView)
