@@ -38,4 +38,10 @@ class ProfileViewModel(private val dataRepository: DataRepository) : ViewModel()
             dataRepository.removeGeofence()
         }
     }
+
+    fun removeUsers() {
+        viewModelScope.launch {
+            dataRepository.removeUsers()
+        }
+    }
 }

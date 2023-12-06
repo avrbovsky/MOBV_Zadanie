@@ -256,9 +256,6 @@ class DataRepository private constructor(
                     cache.insertUserItems(users)
                     return ""
                 }
-                response.body()?.me?.let {
-
-                }
             }
 
             return "Failed to load users"
@@ -300,6 +297,8 @@ class DataRepository private constructor(
     }
 
     fun getGeofences() = cache.getGeofences()
+
+    suspend fun removeUsers() = cache.deleteUserItems()
 
     suspend fun getUserFromCache(id: String): UserEntity? {
         return withContext(Dispatchers.IO) {

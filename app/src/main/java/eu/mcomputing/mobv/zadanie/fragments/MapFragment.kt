@@ -45,12 +45,7 @@ class MapFragment: Fragment(), OnMarkerClickListener, OnMapReadyCallback {
     val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-//                initLocationComponent()
-//                addLocationListeners()
-            }
-        }
+        ) {}
 
     fun hasPermissions(context: Context) = PERMISSIONS_REQUIRED.all {
         ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
