@@ -134,6 +134,10 @@ class ProfileFragment : Fragment() {
                 PreferenceData.getInstance().clearData(requireContext())
                 authViewModel.logout()
                 it.findNavController().navigate(R.id.action_profile_to_intro)
+
+                geofencingHelper.cancelWorker()
+                viewModel.removeUsers()
+                removeGeofence()
             }
 
             bnd.btChangePassword.setOnClickListener{
