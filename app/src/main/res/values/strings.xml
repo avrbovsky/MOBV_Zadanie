@@ -9,7 +9,7 @@
     <string name="newPasswordRepeat">Nové heslo znovu</string>
     <string name="changePassword">Zmeniť heslo</string>
     <string name="code">Kód</string>
-    <string name="sendCode">Zaslať kód</string>
+    <string name="sendResetEmail">Zaslať resetovací email</string>
     <string name="userProfile">Profil používateľa</string>
     <string name="toggleGPS">Zdielať polohu</string>
     <string name="signUp">Registrácia</string>

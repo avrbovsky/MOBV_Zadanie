@@ -28,7 +28,8 @@ class AuthViewModel(private val dataRepository: DataRepository) : ViewModel() {
             val result = dataRepository.apiRegisterUser(
                 username.value ?: "",
                 email.value ?: "",
-                password.value ?: ""
+                password.value ?: "",
+                repeat_password.value ?: ""
             )
             _registrationResult.postValue(result.first ?: "")
             _userResult.postValue(result.second)

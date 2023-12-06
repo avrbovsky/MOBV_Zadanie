@@ -10,7 +10,7 @@
     <string name="newPasswordRepeat">Repeat new password</string>
     <string name="changePassword">Change password</string>
     <string name="code">Code</string>
-    <string name="sendCode">Send code</string>
+    <string name="sendResetEmail">Send reset email</string>
     <string name="userProfile">User profile</string>
     <string name="toggleGPS">Share my location</string>
     <string name="signUp">Sign up</string>

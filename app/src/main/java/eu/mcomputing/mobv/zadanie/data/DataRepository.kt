@@ -43,7 +43,8 @@ class DataRepository private constructor(
     suspend fun apiRegisterUser(
         username: String,
         email: String,
-        password: String
+        password: String,
+        passwordAgain: String
     ): Pair<String, User?> {
         if (username.isEmpty()) {
             return Pair("Username can not be empty", null)
@@ -53,6 +54,12 @@ class DataRepository private constructor(
         }
         if (password.isEmpty()) {
             return Pair("Password can not be empty", null)
+        }
+        if (passwordAgain.isEmpty()) {
+            return Pair("Password repeat can not be empty", null)
+        }
+        if (password != passwordAgain) {
+            return Pair("Passwords are not matching", null)
         }
         try {
             val response = service.registerUser(UserRegistrationRequest(username, email, password))
@@ -147,7 +154,19 @@ class DataRepository private constructor(
         return Pair("Fatal error. Failed to login user.", null)
     }
 
-    suspend fun apiChangePassword(oldPassword: String, newPassword: String): Pair<String, Boolean> {
+    suspend fun apiChangePassword(oldPassword: String, newPassword: String, newPasswordRepeat: String): Pair<String, Boolean> {
+        if (oldPassword.isEmpty()) {
+            return Pair("Password can not be empty.", false)
+        }
+        if (newPassword.isEmpty()) {
+            return Pair("New password can not be empty.", false)
+        }
+        if (newPasswordRepeat.isEmpty()) {
+            return Pair("New password again can not be empty.", false)
+        }
+        if(newPasswordRepeat != newPassword){
+            return Pair("Passwords are not matching", false)
+        }
         try {
             val response = service.changePassword(PasswordChangeRequest(oldPassword, newPassword))
             if (response.isSuccessful) {

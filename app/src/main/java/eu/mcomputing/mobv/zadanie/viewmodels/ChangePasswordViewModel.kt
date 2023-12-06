@@ -22,8 +22,7 @@ class ChangePasswordViewModel(private val dataRepository: DataRepository): ViewM
 
     fun resetPassword() {
         viewModelScope.launch {
-            // TODO implement null checking, comparing passwords
-            val result = dataRepository.apiChangePassword(oldPassword.value ?: "", newPassword.value ?: "")
+            val result = dataRepository.apiChangePassword(oldPassword.value ?: "", newPassword.value ?: "", newPasswordRepeat.value ?: "")
             _messageResult.postValue(result.first ?: "")
             _statusResult.postValue(result.second ?: false)
         }
