@@ -4,4 +4,9 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Icon">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">45dp</item>
+    </style>
 </resources>

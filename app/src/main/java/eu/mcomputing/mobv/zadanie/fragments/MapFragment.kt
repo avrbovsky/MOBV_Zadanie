@@ -112,7 +112,7 @@ class MapFragment: Fragment(), OnMarkerClickListener, OnMapReadyCallback {
                         LatLng(
                             geofence!!.lat,
                             geofence!!.lon
-                        ), 16.0F
+                        ), 17.0F
                     )
                 )
             }
@@ -123,7 +123,7 @@ class MapFragment: Fragment(), OnMarkerClickListener, OnMapReadyCallback {
         mapFragment.getMapAsync{
             it.clear()
             if(geofence != null){
-                it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(geofence!!.lat, geofence!!.lon), 16.0F))
+                it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(geofence!!.lat, geofence!!.lon), 17.0F))
                 it.addCircle(
                     CircleOptions()
                     .center(LatLng(geofence!!.lat, geofence!!.lon))
