@@ -194,9 +194,10 @@ class ProfileFragment : Fragment() {
     private fun loadProfile(binding: FragmentProfileBinding, user: User?){
         val baseUrl = "https://upload.mcomputing.eu/"
         val photoUrl: String = user?.photo ?: ""
+        val time = System.currentTimeMillis()
 
         Picasso.get()
-            .load(baseUrl + photoUrl)
+            .load("$baseUrl$photoUrl?time=$time")
             .placeholder(R.drawable.defualt_profile_picture)
             .resize(60, 60)
             .centerCrop()
@@ -231,6 +232,7 @@ class ProfileFragment : Fragment() {
                             .radius(100.0)
                             .fillColor(Color.argb(100, 200, 150, 255))
                             .strokeColor(Color.rgb(150, 100, 200))
+                            .strokeWidth(2.0F)
                     )
                 }
             }

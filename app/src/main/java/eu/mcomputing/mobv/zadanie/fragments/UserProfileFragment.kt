@@ -114,6 +114,7 @@ class UserProfileFragment:  Fragment() {
                         .radius(100.0)
                         .fillColor(Color.argb(100, 200, 150, 255))
                         .strokeColor(Color.rgb(150, 100, 200))
+                        .strokeWidth(2.0F)
                 )
             }
         }

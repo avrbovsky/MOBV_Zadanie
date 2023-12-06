@@ -45,9 +45,10 @@ class FeedAdapter(private val click: ItemClick): RecyclerView.Adapter<FeedAdapte
         val imageView:ImageView = holder.itemView.findViewById<ImageView>(R.id.iv_feedItemImage)
         val baseUrl = "https://upload.mcomputing.eu/"
         val photoUrl: String = items[position].photo
+        val time = System.currentTimeMillis()
 
         Picasso.get()
-            .load(baseUrl + photoUrl)
+            .load("$baseUrl$photoUrl?time=$time" )
             .placeholder(R.drawable.defualt_profile_picture)
             .resize(60, 60)
             .centerCrop()
