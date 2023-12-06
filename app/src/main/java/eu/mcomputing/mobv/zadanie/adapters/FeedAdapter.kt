@@ -1,5 +1,6 @@
 package eu.mcomputing.mobv.zadanie.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,10 @@ class FeedAdapter(private val click: ItemClick): RecyclerView.Adapter<FeedAdapte
         return FeedViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.itemView.findViewById<TextView>(R.id.tv_feedItemText).text = items[position].name
+        holder.itemView.findViewById<TextView>(R.id.tv_feedItemUsername).text = items[position].name
+        holder.itemView.findViewById<TextView>(R.id.tv_feedItemUpdate).text = "Updated at: ${items[position].updated}"
         loadProfilePicture(holder, position)
         holder.itemView.setOnClickListener{
             click.onItemClick(items[position].uid)

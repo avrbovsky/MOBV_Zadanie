@@ -61,7 +61,8 @@ class UserProfileFragment:  Fragment() {
                 loadProfile(bnd, it)
 
                 it?.let {
-                    bnd.tvLastSeen.text = "Last seen: ${it.updated}"
+                    bnd.tvUserProfileText.text = getString(R.string.otherUserProfile, it.name)
+                    bnd.tvLastSeen.text = getString(R.string.lastSeen, it.updated)
                 }
             }
 

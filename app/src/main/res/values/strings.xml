@@ -16,4 +16,11 @@
     <string name="loadProfile">Načítať profil</string>
     <string name="logout">Odhlásiť sa</string>
     <string name="forgot_password">Zabudnuté heslo?</string>
+    <string name="users_in_area">V okolí je %1$d používateľov</string>
+    <string name="otherUserProfile">Profil používateľa %1$s</string>
+    <string name="lastSeen">Naposledy videný: %1$s</string>
+    <string name="updatedAt">Upravené: %1$s</string>
+    <string name="changeProfilePicture">Zmeniť profilovú fotku</string>
+    <string name="removeProfilePicture">Odstrániť profilovú fotku</string>
+    <string name="editProfilePicture">Aktualizovať profilovú fotku</string>
 </resources>

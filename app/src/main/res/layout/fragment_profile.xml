@@ -64,6 +64,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
+                    style="@style/Header"
+                    android:textStyle="normal"
                     android:text="@{model.userResult.username}"
                     app:layout_constraintStart_toEndOf="@+id/cv_picture"
                     app:layout_constraintTop_toTopOf="parent"
@@ -95,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/bt_changePassword"
-                android:text="Change password"
+                android:text="@string/changePassword"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/bt_logout" />

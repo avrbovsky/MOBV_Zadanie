@@ -80,6 +80,7 @@ class FeedFragment: Fragment() {
             bnd.feedRecyclerview.adapter = feedAdapter
 
             viewModel.feed_items.observe(viewLifecycleOwner) { items ->
+                bnd.tvFeedFragmentHeader.text = getString(R.string.users_in_area, items?.size ?: 0)
                 feedAdapter.updateItems(items ?: emptyList())
             }
 
