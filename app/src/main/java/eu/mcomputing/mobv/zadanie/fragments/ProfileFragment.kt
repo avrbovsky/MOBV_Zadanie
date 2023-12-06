@@ -32,7 +32,6 @@ import eu.mcomputing.mobv.zadanie.data.db.entities.GeofenceEntity
 import eu.mcomputing.mobv.zadanie.data.model.User
 import eu.mcomputing.mobv.zadanie.databinding.FragmentProfileBinding
 import eu.mcomputing.mobv.zadanie.utils.GeofencingHelper
-import eu.mcomputing.mobv.zadanie.utils.PicassoUtils
 import eu.mcomputing.mobv.zadanie.viewmodels.AuthViewModel
 import eu.mcomputing.mobv.zadanie.viewmodels.ProfileViewModel
 
@@ -198,8 +197,7 @@ class ProfileFragment : Fragment() {
 
         Picasso.get()
             .load(baseUrl + photoUrl)
-            .placeholder(R.drawable.ic_account_box)
-            .transform(PicassoUtils.circleTransformation)
+            .placeholder(R.drawable.defualt_profile_picture)
             .resize(60, 60)
             .centerCrop()
             .into(binding.ivPicture)

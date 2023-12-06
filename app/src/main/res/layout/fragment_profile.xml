@@ -35,14 +35,23 @@
             app:layout_constraintTop_toBottomOf="@id/tv_profileText"
             >
 
-            <ImageView
+            <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/iv_picture"
+                android:id="@+id/cv_picture"
+                app:cardCornerRadius="100dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/iv_picture"
+                    />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tv_userName"
@@ -50,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="@{model.userResult.username}"
-                app:layout_constraintStart_toEndOf="@+id/iv_picture"
+                app:layout_constraintStart_toEndOf="@+id/cv_picture"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="User Name" />
