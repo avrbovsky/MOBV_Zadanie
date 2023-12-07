@@ -100,6 +100,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/bt_sign_up"
             android:text="@string/signUp"
+            style="@style/Button"
             android:onClick="@{()->model.registerUser()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
