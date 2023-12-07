@@ -68,17 +68,6 @@ class UserProfileFragment:  Fragment() {
 
             viewModel.geofences.observe(viewLifecycleOwner){
                 drawLastGeofence(it)
-//                it?.last()?.let { geofence ->
-//                    val dateTime = LocalDateTime.ofInstant(
-//                        Instant.ofEpochMilli(geofence.time),
-//                        ZoneId.systemDefault()
-//                    )
-//
-//                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-//                    val formattedDateTime = dateTime.format(formatter)
-//
-//                    bnd.tvLastSeen.text = "Last seen: $formattedDateTime"
-//                }
             }
         }
     }
@@ -86,9 +75,10 @@ class UserProfileFragment:  Fragment() {
     private fun loadProfile(binding: FragmentUserProfileBinding, user: UserEntity?){
         val baseUrl = "https://upload.mcomputing.eu/"
         val photoUrl: String = user?.photo ?: ""
+        val time = System.currentTimeMillis()
 
         Picasso.get()
-            .load(baseUrl + photoUrl)
+            .load("$baseUrl$photoUrl?time=$time")
             .placeholder(R.drawable.defualt_profile_picture)
             .resize(60, 60)
             .centerCrop()
