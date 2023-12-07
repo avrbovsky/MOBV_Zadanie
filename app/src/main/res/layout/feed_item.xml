@@ -27,11 +27,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/cv_feedItemImage"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tv_feedItemUpdate"
-        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_feedItemRadius"
+        android:layout_marginStart="25dp"
         tools:text="xvrbovskya"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_feedItemRadius"
+        android:textSize="10sp"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toEndOf="@+id/cv_feedItemImage"
+        app:layout_constraintBottom_toTopOf="@+id/tv_feedItemUpdate"
+        app:layout_constraintTop_toBottomOf="@+id/tv_feedItemUsername"
+        android:layout_marginStart="25dp"
+        tools:text="okruh 600 metrov"
         />
 
     <TextView
@@ -39,11 +53,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_feedItemUpdate"
         android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/cv_feedItemImage"
-        app:layout_constraintTop_toBottomOf="@+id/tv_feedItemUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tv_feedItemRadius"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="15dp"
-        tools:text="Updated at: 2023-12-06 22:52:58"
+        android:layout_marginStart="25dp"
+        tools:text="Pred 6 hodinami"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

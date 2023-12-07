@@ -21,6 +21,8 @@
     <string name="otherUserProfile">%1$s\'s Profile</string>
     <string name="lastSeen">Last seen: %1$s</string>
     <string name="updatedAt">Updated at: %1$s</string>
+    <string name="hoursAgo">%1$d hours ago</string>
+    <string name="itemRadius">radius %1$d meters</string>
     <string name="changeProfilePicture">Change profile picture</string>
     <string name="removeProfilePicture">Remove profile picture</string>
     <string name="editProfilePicture">Update profile picture</string>

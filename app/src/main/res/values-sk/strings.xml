@@ -20,6 +20,8 @@
     <string name="otherUserProfile">Profil používateľa %1$s</string>
     <string name="lastSeen">Naposledy videný: %1$s</string>
     <string name="updatedAt">Upravené: %1$s</string>
+    <string name="hoursAgo">pred %1$d hodinami</string>
+    <string name="itemRadius">okruh %1$d metrov</string>
     <string name="changeProfilePicture">Zmeniť profilovú fotku</string>
     <string name="removeProfilePicture">Odstrániť profilovú fotku</string>
     <string name="editProfilePicture">Aktualizovať profilovú fotku</string>

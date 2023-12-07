@@ -13,6 +13,8 @@ import eu.mcomputing.mobv.zadanie.R
 import eu.mcomputing.mobv.zadanie.data.db.entities.UserEntity
 import eu.mcomputing.mobv.zadanie.interfaces.ItemClick
 import eu.mcomputing.mobv.zadanie.utils.ItemDiffCallback
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 class FeedAdapter(private val click: ItemClick): RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
     private var items: List<UserEntity> = listOf()
@@ -28,7 +30,15 @@ class FeedAdapter(private val click: ItemClick): RecyclerView.Adapter<FeedAdapte
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.tv_feedItemUsername).text = items[position].name
-        holder.itemView.findViewById<TextView>(R.id.tv_feedItemUpdate).text = "Updated at: ${items[position].updated}"
+
+        val dateTime = LocalDateTime.parse(items[position].updated.replace(" ", "T"))
+        val currentDateTime = LocalDateTime.now()
+        val hoursAgo = ChronoUnit.HOURS.between(dateTime, currentDateTime)
+
+        val radius = items[position].radius.toInt()
+
+        holder.itemView.findViewById<TextView>(R.id.tv_feedItemUpdate).text = holder.itemView.context.getString(R.string.hoursAgo, hoursAgo)
+        holder.itemView.findViewById<TextView>(R.id.tv_feedItemRadius).text = holder.itemView.context.getString(R.string.itemRadius, radius)
         loadProfilePicture(holder, position)
         holder.itemView.setOnClickListener{
             click.onItemClick(items[position].uid)
